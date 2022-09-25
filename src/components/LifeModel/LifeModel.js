@@ -1,3 +1,4 @@
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 const AMOUNT = 30;
@@ -130,6 +131,12 @@ export const LifeModel = () => {
     positions: transparentSpheresPos,
     colors: transparentColor,
     sizes,
+  });
+
+  useFrame(({ clock }) => {
+    // This function runs at the native refresh rate inside of a shared render-loop
+    currentPointMat.opacity =
+      0.35 * Math.sin(clock.getElapsedTime() * 3) + 0.75;
   });
 
   return (
