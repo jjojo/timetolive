@@ -1,9 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const AMOUNT = 30;
-const COUNT = Math.pow(AMOUNT, 3);
-
 const dateOfBirth = new Date(1992, 6, 9);
 
 const daysLived = Math.round(
@@ -70,37 +67,6 @@ const createPosSetter =
     return array;
   };
 
-const setPos = createPosSetter(AMOUNT);
-
-const transparentSpheresPos = new Float32Array(COUNT * 3);
-const positions = new Float32Array(COUNT * 3);
-const currentPosition = new Float32Array(3);
-const colors = new Float32Array(COUNT * 3);
-const transparentColor = new Float32Array(COUNT * 3).fill(1);
-const currentColor = new Float32Array([1, 0, 0]);
-const sizes = new Float32Array(COUNT).fill(100);
-let i = 0;
-for (let x = 0; x < AMOUNT; x++) {
-  for (let y = 0; y < AMOUNT; y++) {
-    for (let z = 0; z < AMOUNT; z++) {
-      if (i > daysLived) {
-        setPos(positions, i, x, y, z);
-      } else if (i === daysLived) {
-        currentPosition[0] = (AMOUNT * radius) / 2 - x * radius;
-        currentPosition[1] = (AMOUNT * radius) / 2 - y * radius;
-        currentPosition[2] = (AMOUNT * radius) / 2 - z * radius;
-      } else {
-        setPos(transparentSpheresPos, i, x, y, z);
-      }
-
-      colors[i * 3 + 0] = Math.random();
-      colors[i * 3 + 1] = Math.random();
-      colors[i * 3 + 2] = Math.random();
-      i++;
-    }
-  }
-}
-
 const createGeometry = ({ positions, colors, sizes }) => {
   const geometry = new THREE.InstancedBufferGeometry();
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
@@ -114,7 +80,72 @@ const createGeometry = ({ positions, colors, sizes }) => {
   return geometry;
 };
 
-export const LifeModel = () => {
+export const LifeModel = ({ amount, count }) => {
+  const setPos = createPosSetter(amount);
+
+  const transparentSpheresPos = new Float32Array(count * 3);
+  let positions = [];
+  const currentPosition = new Float32Array(3);
+  const colors = new Float32Array(count * 3);
+  const transparentColor = new Float32Array(count * 3).fill(1);
+  const currentColor = new Float32Array([1, 0, 0]);
+  const sizes = new Float32Array(count).fill(28);
+  const spherePadding = 5;
+  let i = 0;
+  for (let x = 0; x < amount; x++) {
+    for (let y = 0; y < amount; y++) {
+      for (let z = 0; z < amount; z++) {
+        if (i > daysLived) {
+          if (
+            !(
+              i >
+                (amount - spherePadding) * amount * 2 +
+                  spherePadding +
+                  daysLived &&
+              i < count - amount * amount * spherePadding + 1 &&
+              i % amount > spherePadding - 1 &&
+              (i + spherePadding) % amount > spherePadding - 1 &&
+              i % (amount * amount) > amount * spherePadding &&
+              (i + amount * spherePadding) % (amount * amount) > amount * 2
+            )
+          ) {
+            // setPos(positions, i, x, y, z);
+            positions.push(
+              (amount * 11) / 2 - x * 11,
+              (amount * 11) / 2 - y * 11,
+              (amount * 11) / 2 - z * 11
+            );
+          }
+        } else if (i === daysLived) {
+          currentPosition[0] = (amount * radius) / 2 - x * radius;
+          currentPosition[1] = (amount * radius) / 2 - y * radius;
+          currentPosition[2] = (amount * radius) / 2 - z * radius;
+        } else {
+          setPos(transparentSpheresPos, i, x, y, z);
+        }
+
+        if (
+          i >
+            (amount - spherePadding) * amount * 2 + spherePadding + daysLived &&
+          i < count - amount * amount * spherePadding + 1 &&
+          i % amount > spherePadding - 1 &&
+          (i + spherePadding) % amount > spherePadding - 1 &&
+          i % (amount * amount) > amount * spherePadding &&
+          (i + amount * spherePadding) % (amount * amount) > amount * 2
+        ) {
+          colors[i * 3 + 0] = Math.random();
+          colors[i * 3 + 1] = Math.random();
+          colors[i * 3 + 2] = Math.random();
+        } else {
+          colors[i * 3 + 0] = 1;
+          colors[i * 3 + 1] = 1;
+          colors[i * 3 + 2] = 1;
+        }
+        i++;
+      }
+    }
+  }
+
   const currentGeometry = createGeometry({
     positions: currentPosition,
     colors: currentColor,
@@ -122,8 +153,8 @@ export const LifeModel = () => {
   });
   console.log(positions);
   const geometry = createGeometry({
-    positions,
-    colors: transparentColor,
+    positions: new Float32Array(positions),
+    colors: colors,
     sizes,
   });
 
