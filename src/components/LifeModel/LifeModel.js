@@ -10,30 +10,6 @@ let daysLived = Math.round(
   new Date(new Date().getTime() - dateOfBirth.getTime()) / (1000 * 60 * 60 * 24)
 );
 
-const yearsLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) /
-    (1000 * 60 * 60 * 24) /
-    365
-);
-
-const weeksLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) /
-    (1000 * 60 * 60 * 24) /
-    7
-);
-
-const hoursLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) / (1000 * 60 * 60)
-);
-
-const minutesLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) / (1000 * 60)
-);
-
-const secondsLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) / (1000 * 12)
-);
-
 // daysLived = yearsLived;
 
 // console.log(yearsLived);
