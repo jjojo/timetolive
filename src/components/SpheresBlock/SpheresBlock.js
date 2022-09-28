@@ -2,10 +2,13 @@ import * as THREE from "three";
 import { beforeCompileShader } from "../../helpers/beforeCompileShader";
 import { createInstancedBufferGeometry } from "../../helpers/createInstancedBufferGeometry";
 
-const sphereTexture = new THREE.TextureLoader().load("/ball.png", (t) => {
-  t.center.setScalar(0.5);
-  t.rotation = -Math.PI * 0.5;
-});
+const sphereTexture = new THREE.TextureLoader().load(
+  `/timetolive/ball.png`,
+  (t) => {
+    t.center.setScalar(0.5);
+    t.rotation = -Math.PI * 0.5;
+  }
+);
 
 const pointsMat = new THREE.PointsMaterial({
   map: sphereTexture,
@@ -34,7 +37,6 @@ export const SpheresBlock = ({
 }) => {
   let i = 0;
   let positions = [];
-  //   let colors = [];
   let transparentPositions = [];
 
   const hollowCondition = (i) =>
@@ -86,8 +88,8 @@ export const SpheresBlock = ({
 
   return (
     <>
-      <points args={[transparentGeometry, pointsMatTransparent]} />;
-      <points args={[geometry, pointsMat]} />;
+      <points args={[transparentGeometry, pointsMatTransparent]} />
+      <points args={[geometry, pointsMat]} />
     </>
   );
 };

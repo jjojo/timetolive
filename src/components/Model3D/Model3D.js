@@ -2,20 +2,18 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
 import { LifeModel } from "../LifeModel/LifeModel";
 
-// const AMOUNT = 100;
-// const COUNT = Math.pow(AMOUNT, 3);
-
 // amount 438 => 80 years in seconds
 // amount 31 => 81.6 years in days
 // amount 16 => 80 years in weeks
 // amount 4 => 80 years in years
 
-export const Model3D = ({ amount, count }) => {
+export const Model3D = ({ settings }) => {
+  const { amount, timeLived, wallThickness } = settings;
+  console.log(settings);
   return (
     <div>
       <Canvas
         style={{
-          // position: "absolute",
           width: "100%",
           height: "500px",
         }}
@@ -32,7 +30,11 @@ export const Model3D = ({ amount, count }) => {
           groundColor={0x888888}
           position={[0, 1, 0]}
         ></hemisphereLight>
-        <LifeModel amount={amount} count={count} />
+        <LifeModel
+          amount={amount}
+          timeLived={timeLived}
+          wallThickness={wallThickness}
+        />
         <OrbitControls />
         <Stats />
       </Canvas>

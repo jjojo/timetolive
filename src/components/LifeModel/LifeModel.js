@@ -1,23 +1,16 @@
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 import { beforeCompileShader } from "../../helpers/beforeCompileShader";
 import { createInstancedBufferGeometry } from "../../helpers/createInstancedBufferGeometry";
 import { SpheresBlock } from "../SpheresBlock/SpheresBlock";
 
-const dateOfBirth = new Date(1992, 6, 9);
-
-let daysLived = Math.round(
-  new Date(new Date().getTime() - dateOfBirth.getTime()) / (1000 * 60 * 60 * 24)
+const sphereTexture = new THREE.TextureLoader().load(
+  "/timetolive/ball.png",
+  (t) => {
+    t.center.setScalar(0.5);
+    t.rotation = -Math.PI * 0.5;
+  }
 );
-
-// daysLived = yearsLived;
-
-// console.log(yearsLived);
-
-const sphereTexture = new THREE.TextureLoader().load("/ball.png", (t) => {
-  t.center.setScalar(0.5);
-  t.rotation = -Math.PI * 0.5;
-});
 
 const currentPointMat = new THREE.PointsMaterial({
   map: sphereTexture,
@@ -30,19 +23,19 @@ currentPointMat.onBeforeCompile = beforeCompileShader;
 
 const radius = 11;
 
-export const LifeModel = ({ amount, count }) => {
+export const LifeModel = ({ amount, timeLived, wallThickness }) => {
   const currentPosition = new Float32Array(3);
   const currentColor = new Float32Array([1, 0, 0]);
-  const sizes = new Float32Array(count).fill(28);
+  const sizes = new Float32Array(Math.pow(amount, 3)).fill(28);
   let i = 0;
 
   for (let x = 0; x < amount; x++) {
-    if (i > daysLived) break;
+    if (i > timeLived) break;
     for (let y = 0; y < amount; y++) {
-      if (i > daysLived) break;
+      if (i > timeLived) break;
       for (let z = 0; z < amount; z++) {
-        if (i > daysLived) break;
-        if (i === daysLived) {
+        if (i > timeLived) break;
+        if (i === timeLived) {
           currentPosition[0] = (amount * radius) / 2 - x * radius;
           currentPosition[1] = (amount * radius) / 2 - y * radius;
           currentPosition[2] = (amount * radius) / 2 - z * radius;
@@ -68,10 +61,10 @@ export const LifeModel = ({ amount, count }) => {
     <>
       <points args={[currentGeometry, currentPointMat]} />
       <SpheresBlock
-        count={count}
+        count={Math.pow(amount, 3)}
         amount={amount}
-        timeLived={daysLived}
-        wallThickness={2}
+        timeLived={timeLived}
+        wallThickness={wallThickness}
         sphereRadius={11}
       />
     </>
