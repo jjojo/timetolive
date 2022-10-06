@@ -2,11 +2,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
 import { LifeModel } from "../LifeModel/LifeModel";
 
-// amount 438 => 80 years in seconds
-// amount 31 => 81.6 years in days
-// amount 16 => 80 years in weeks
-// amount 4 => 80 years in years
-
 export const Model3D = ({ settings }) => {
   const { amount, timeLived, wallThickness } = settings;
   console.log(settings);
@@ -15,7 +10,7 @@ export const Model3D = ({ settings }) => {
       <Canvas
         style={{
           width: "100%",
-          height: "500px",
+          height: window.innerWidth < 900 ? "50vh" : "100vh",
         }}
         camera={{
           fov: 50,

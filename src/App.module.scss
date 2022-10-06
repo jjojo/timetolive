@@ -1,4 +1,37 @@
 .container {
   width: 100%;
-  //   height: 100%;
+  display: grid;
+  grid-template-areas:
+    "title"
+    "settings model3d";
+}
+
+.model {
+  grid-area: model3d;
+}
+
+.settings {
+  grid-area: settings;
+  padding-top: 60px;
+  max-width: 28%;
+}
+.title {
+  position: absolute;
+  top: 0;
+  grid-area: title;
+  grid-row: auto;
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-areas:
+      "title"
+      "model3d"
+      "settings";
+  }
+  .settings {
+    grid-area: settings;
+    padding-top: 0;
+    max-width: 100%;
+  }
 }
