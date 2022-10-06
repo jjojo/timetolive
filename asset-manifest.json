@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/timetolive/static/css/main.099884f7.css",
-    "main.js": "/timetolive/static/js/main.928f83b4.js",
+    "main.js": "/timetolive/static/js/main.0ce0da19.js",
     "index.html": "/timetolive/index.html",
     "main.099884f7.css.map": "/timetolive/static/css/main.099884f7.css.map",
-    "main.928f83b4.js.map": "/timetolive/static/js/main.928f83b4.js.map"
+    "main.0ce0da19.js.map": "/timetolive/static/js/main.0ce0da19.js.map"
   },
   "entrypoints": [
     "static/css/main.099884f7.css",
-    "static/js/main.928f83b4.js"
+    "static/js/main.0ce0da19.js"
   ]
 }
