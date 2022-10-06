@@ -30,7 +30,7 @@ export const Model3D = ({ settings }) => {
           wallThickness={wallThickness}
         />
         <OrbitControls />
-        <Stats />
+        {/* <Stats /> */}
       </Canvas>
     </div>
   );

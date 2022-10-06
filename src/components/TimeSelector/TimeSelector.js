@@ -13,9 +13,13 @@ export const TimeSelsector = ({ values, value, setValue }) => {
         maxWidth: "200px",
       }}
     >
-      <button onClick={previous}>{"<"}</button>
+      <button style={{ position: "relative", zIndex: 1 }} onClick={previous}>
+        {"<"}
+      </button>
       <p>{value}</p>
-      <button onClick={next}>{">"}</button>
+      <button style={{ position: "relative", zIndex: 1 }} onClick={next}>
+        {">"}
+      </button>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import DatePicker, { setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import sv from "date-fns/locale/sv";
 import { registerLocale } from "react-datepicker";
+import { Stats } from "@react-three/drei";
 
 registerLocale("sv", sv);
 setDefaultLocale("sv");
