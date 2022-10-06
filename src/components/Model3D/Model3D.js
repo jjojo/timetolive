@@ -4,7 +4,6 @@ import { LifeModel } from "../LifeModel/LifeModel";
 
 export const Model3D = ({ settings }) => {
   const { amount, timeLived, wallThickness } = settings;
-  console.log(settings);
   return (
     <div>
       <Canvas
