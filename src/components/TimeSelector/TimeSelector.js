@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const TimeSelsector = ({ values, value, setValue }) => {
   const next = () =>
     setValue(values[Math.min(values.length - 1, values.indexOf(value) + 1)]);
